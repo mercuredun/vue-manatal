@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <div class="title-text">Headlines</div>
+    <v-text-field class="title-text" @input="$emit('input', text)" v-model="text" placeholder="Headlines" autofocus></v-text-field>
     <v-btn small color="primary">FILTER</v-btn>
   </div>
 </template>
@@ -10,7 +10,7 @@ export default {
   props: [],
   data() {
     return {
-
+      text: ''
     }
   }
 }
@@ -29,7 +29,18 @@ export default {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .filter {
+    .title-text {
+      font-size: 20px;
+    }
+  }
+}
 @media only screen and (max-width: 480px) {
-
+  .filter {
+    .title-text {
+      font-size: 18px;
+    }
+  }
 }
 </style>
