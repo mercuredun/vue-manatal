@@ -3,16 +3,16 @@
     <v-card class="main-card" v-for="(item, index) in items" :key="item.title" :dark="item.urlToImage !== null" :img="item.urlToImage">
       <v-card-actions class="align-end">
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon @click="editHeadline(index)" :color="!item.urlToImage ? '#3F51B5' : ''">mdi-pencil-outline</v-icon>
+        <v-btn @click="editHeadline(index)" icon>
+          <v-icon :color="!item.urlToImage ? '#3F51B5' : ''">mdi-pencil-outline</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn @click="$router.push({name: 'content', params: { title: item.title }})" icon>
           <v-icon :color="!item.urlToImage ? '#3F51B5' : ''">mdi-arrow-right</v-icon>
         </v-btn>
       </v-card-actions>
       <v-card-subtitle> {{ new Date(item.publishedAt).getDateShow() }}</v-card-subtitle>
       <v-card-title :class="!item.urlToImage && 'blue-color'">{{ item.title }}</v-card-title>
-      <v-card-text>{{ item.description && truncate(item.description, 100) }}<span class="blue-color cursor-pointer">Read More</span></v-card-text>
+      <v-card-text>{{ item.description && truncate(item.description, 100) }}<span class="blue-color cursor-pointer" @click="$router.push({name: 'content', params: { title: item.title }})">Read More</span></v-card-text>
     </v-card>
     <v-dialog v-model="showDialog">
       <v-card>

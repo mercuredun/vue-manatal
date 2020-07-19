@@ -44,21 +44,38 @@ export default {
         console.log('items', this.news)
       } catch (e) {
         this.$store.commit('loading/send', false)
-        this.$store.commit('notification/send', { type: 'error', text: 'Error when get Data from API.' })
+        this.$store.commit('notification/send', { type: 'error', text: 'Error when get Article from API.' })
       }
     },
     async errorAPI() {
       try {
         this.$store.commit('loading/send', true)
-        const data = await this.$axios.get('https://newsapi.org/v2/sources?apiKey')
+        await this.$axios.get('https://newsapi.org/v2/sources?apiKey')
         this.$store.commit('loading/send', false)
       } catch (e) {
         this.$store.commit('loading/send', false)
         this.$store.commit('notification/send', { type: 'error', text: 'Error when get Data from API.' })
       }
+    },
+    async firstload() {
+      try {
+        this.$store.commit('loading/send', true)
+        const data = await this.$axios.get(`https://newsapi.org/v2/sources?apiKey=${this.apiKeys}`)
+        if (data.status === 200) {
+          this.$store.commit('source/create', JSON.parse(JSON.stringify(data.data.sources)))
+        }
+        this.$store.commit('loading/send', false)
+      } catch (e) {
+        this.$store.commit('loading/send', false)
+        this.$store.commit('notification/send', { type: 'error', text: 'Error when get Source from API.' })
+        setTimeout(() => {
+          this.$router.go()
+        }, 5000)
+      }
     }
   },
   async mounted() {
+    await this.firstload()
     await this.loadData()
   },
 }
