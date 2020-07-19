@@ -1,9 +1,9 @@
 export const state = () => ({
-  counter: 0
+  flag: false
 })
 
 export const mutations = {
-  increment (state) {
-    state.counter++
+  send (state, text) {
+    state.flag = text
   }
 }
