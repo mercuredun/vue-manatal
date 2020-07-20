@@ -51,6 +51,9 @@ export default {
         const data = this.getByTitle(title)
         if (data) {
           this.item = data
+          const storage = localStorage.watched ? JSON.parse(localStorage.watched) : []
+          storage.push(data)
+          localStorage.watched = JSON.stringify(storage)
         } else {
           this.$store.commit('notification/send', { type: 'error', text: 'Content not found.' })
           setTimeout(() => {

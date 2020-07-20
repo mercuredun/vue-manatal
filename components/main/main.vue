@@ -10,6 +10,9 @@
           <v-icon :color="!item.urlToImage ? '#3F51B5' : ''">mdi-arrow-right</v-icon>
         </v-btn>
       </v-card-actions>
+      <div v-if="item.watched" class="watch-card">
+        <v-card-title>Watched</v-card-title>
+      </div>
       <v-card-subtitle> {{ new Date(item.publishedAt).getDateShow() }}</v-card-subtitle>
       <v-card-title :class="!item.urlToImage && 'blue-color'">{{ item.title }}</v-card-title>
       <v-card-text>{{ item.description && truncate(item.description, 100) }}<span class="blue-color cursor-pointer" @click="$router.push({name: 'content', params: { title: item.title }})">Read More</span></v-card-text>
@@ -85,6 +88,15 @@ export default {
   .main-card {
     width: 23%;
     margin: 10px;
+    position: relative;
+
+    .watch-card {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      background-color: #333;
+      opacity: 0.8;
+    }
   }
 }
 

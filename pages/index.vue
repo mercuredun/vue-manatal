@@ -39,9 +39,12 @@ export default {
         const data = await this.$axios.get('https://newsapi.org/v2/top-headlines', { params })
         if (data.status === 200) {
           this.$store.commit('news/create', JSON.parse(JSON.stringify(data.data.articles)))
+          const storage = localStorage.watched ? JSON.parse(localStorage.watched) : []
+          storage.forEach(s => {
+            this.$store.commit('news/watch', s)
+          })
         }
         this.$store.commit('loading/send', false)
-        console.log('items', this.news)
       } catch (e) {
         this.$store.commit('loading/send', false)
         this.$store.commit('notification/send', { type: 'error', text: 'Error when get Article from API.' })

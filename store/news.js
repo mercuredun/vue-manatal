@@ -14,6 +14,10 @@ export const mutations = {
   },
   edit (state, text) {
     state.list[text.index].title = text.text
+  },
+  watch (state, text) {
+    const found = state.list.find(l => l.title === text.title) || {}
+    found.watched = true
   }
 }
 
