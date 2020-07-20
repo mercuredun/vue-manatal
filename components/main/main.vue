@@ -69,6 +69,7 @@ export default {
           return false
         }
         this.$store.commit('news/edit', this.dialogData)
+        this.$store.commit('notification/send', { type: 'success', text: 'Edited.' })
         this.showDialog = false
       } catch (e) {
         this.$store.commit('notification/send', { type: 'error', text: 'Error when submit edit Headline.' })
